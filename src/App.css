@@ -43,10 +43,12 @@ body {
 
 .textLayer h2 {
     color: #fff;
+    font-family: 'SongTi';
 }
 
 .textLayer h4 {
     color: #fff;
+    font-family: 'SongTi';
 }
 
 .textLayer .textarea {
