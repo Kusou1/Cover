@@ -29,12 +29,12 @@ function App() {
 
     let titleStyle = {
         fontSize: form.fontSize,
-        lineHeight: form.fontSize + 'px'
+        lineHeight: '1.4em'
     }
 
     let subTitleStyle = {
         fontSize: form.subTitleFontSize,
-        lineHeight: form.subTitleFontSize + 'px'
+        lineHeight: '1.4em'
     }
 
     const ref = useRef()
