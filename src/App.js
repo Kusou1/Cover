@@ -14,7 +14,7 @@ function App() {
     let [waveCount, setWaveCount] = useState(5)
     let [form, setForm] = useState({
         title: '输入标题',
-        fontSize: 50,
+        fontSize: 80,
         subtitle: '',
         subTitleFontSize: 30
     })
