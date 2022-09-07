@@ -13,11 +13,17 @@ function App() {
     }
     let [waveCount, setWaveCount] = useState(5)
     let [form, setForm] = useState({
-        title: '输入标题',
+        topTitle: 'Move系列之一',
+        topTitleFontSize: 42,
+        title: '「输入标题」',
         fontSize: 80,
-        subtitle: '',
+        subtitle: '副标题',
         subTitleFontSize: 30
     })
+
+    function topTitle() {
+        return { __html: form.topTitle.replace(/\n/g, '<br/>') }
+    }
 
     function title() {
         return { __html: form.title.replace(/\n/g, '<br/>') }
@@ -25,6 +31,11 @@ function App() {
 
     function subtitle() {
         return { __html: form.subtitle.replace(/\n/g, '<br/>') }
+    }
+
+    let topTitleStyle = {
+        fontSize: form.topTitleFontSize,
+        lineHeight: '1.4em'
     }
 
     let titleStyle = {
@@ -71,6 +82,7 @@ function App() {
                 <div className="textLayer">
                     <div className="name">「MoveDAO」</div>
                     <div className="textarea">
+                        <h3 style={topTitleStyle} dangerouslySetInnerHTML={topTitle()}></h3>
                         <h2 style={titleStyle} dangerouslySetInnerHTML={title()}></h2>
                         <h4 style={subTitleStyle} dangerouslySetInnerHTML={subtitle()}></h4>
                     </div>
@@ -78,6 +90,28 @@ function App() {
                 </div>
             </div>
             <div className="waveControl">
+                <TextArea
+                    value={form.topTitle}
+                    onChange={(e) => {
+                        setForm({
+                            ...form,
+                            topTitle: e.target.value
+                        })
+                    }}
+                    rows={4}
+                    placeholder="输入上标题"
+                ></TextArea>
+                <InputNumber
+                    defaultValue={form.topTitleFontSize}
+                    onChange={(value) => {
+                        setForm({
+                            ...form,
+                            topTitleFontSize: value
+                        })
+                    }}
+                    style={{ width: '100%', marginTop: 20 }}
+                    addonBefore={<span>上标题字体大小</span>}
+                />
                 <TextArea
                     value={form.title}
                     onChange={(e) => {
@@ -88,6 +122,7 @@ function App() {
                     }}
                     rows={4}
                     placeholder="输入标题"
+                    style={{ width: '100%', marginTop: 20 }}
                 ></TextArea>
                 <InputNumber
                     defaultValue={form.fontSize}

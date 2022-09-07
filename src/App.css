@@ -41,15 +41,13 @@ body {
     color: white;
 }
 
-.textLayer h2 {
+.textLayer h2,
+.textLayer h3,
+.textLayer h4{
     color: #fff;
     font-family: 'SongTi';
 }
 
-.textLayer h4 {
-    color: #fff;
-    font-family: 'SongTi';
-}
 
 .textLayer .textarea {
     position: absolute;
