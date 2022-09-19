@@ -7,11 +7,7 @@ import { toPng } from 'html-to-image'
 import logo from './assets/move.jpg'
 function App() {
     const { TextArea } = Input
-    const layout = {
-        labelCol: { span: 8 },
-        wrapperCol: { span: 16 }
-    }
-    let [waveCount, setWaveCount] = useState(5)
+
     let [form, setForm] = useState({
         topTitle: 'Move系列之一',
         topTitleFontSize: 42,
@@ -67,18 +63,31 @@ function App() {
             })
     }, [ref])
 
-    useEffect(() => {
+    const holder = useRef()
+    let [waveCount, setWaveCount] = useState(5)
+    let [waveWidth, setWaveWidth] = useState(200)
+    let [waveColor, setWaveColor] = useState(14)
+    let [waveAmplitude, setWaveAmplitude] = useState(0.5)
+    let [waveRotation, setWaveRotation] = useState(45)
+
+    const reload = function () {
+        holder.current.innerHTML = ''
         var waves = new Waves('#holder', {
             fps: false,
             waves: waveCount,
-            width: 200
+            width: waveWidth,
+            hue:[waveColor,waveColor]
         })
         waves.animate()
-    }, [waveCount])
+    }
+
+    useEffect(() => {
+        reload()
+    }, [waveCount,waveColor,waveWidth])
     return (
         <div className="App">
             <div className="waveLayer" ref={ref}>
-                <div id="holder"></div>
+                <div id="holder" ref={holder}></div>
                 <div className="textLayer">
                     <div className="name">「MoveDAO」</div>
                     <div className="textarea">
@@ -90,6 +99,53 @@ function App() {
                 </div>
             </div>
             <div className="waveControl">
+                <div className='waveColorControl flex items-center'>
+                    <span>WaveColor</span> 
+                    <div className='inline-block w-6 h-6 ml-2' style={{backgroundColor:"#c40481"}} onClick={()=>{setWaveColor(50)}}></div>
+                    <div className='inline-block w-6 h-6 ml-2' style={{backgroundColor:"#095dd5"}} onClick={()=>{setWaveColor(14)}}></div>
+                    <div className='inline-block w-6 h-6 ml-2' style={{backgroundColor:"#9a039b"}} onClick={()=>{setWaveColor(30)}}></div>
+                    <div className='inline-block w-6 h-6 ml-2' style={{backgroundColor:"#007ab8"}} onClick={()=>{setWaveColor(36)}}></div>
+                    <div className='inline-block w-6 h-6 ml-2' style={{backgroundColor:"#01d597"}} onClick={()=>{setWaveColor(38)}}></div>
+                    <div className='inline-block w-6 h-6 ml-2' style={{backgroundColor:"#bfb100"}} onClick={()=>{setWaveColor(44)}}></div>
+                    <div className='inline-block w-6 h-6 ml-2' style={{backgroundColor:"#f2650f"}} onClick={()=>{setWaveColor(46)}}></div>
+                    <div className='inline-block w-6 h-6 ml-2' style={{backgroundColor:"#e9243a"}} onClick={()=>{setWaveColor(48)}}></div>
+
+                </div>
+                <InputNumber
+                    defaultValue={waveCount}
+                    onChange={(value) => {
+                        setWaveCount(value)
+                    }}
+                    style={{ width: '100%', marginTop: 20 }}
+                    addonBefore={<span>WaveCount</span>}
+                />
+                <InputNumber
+                    defaultValue={waveAmplitude}
+                    onChange={(value) => {
+                        setWaveAmplitude(value)
+                    }}
+                    style={{ width: '100%', marginTop: 20 }}
+                    min={0}
+                    max={1}
+                    addonBefore={<span>waveAmplitude</span>}
+                />
+                <InputNumber
+                    defaultValue={waveRotation}
+                    onChange={(value) => {
+                        setWaveRotation(value)
+                    }}
+                    style={{ width: '100%', marginTop: 20 }}
+                    addonBefore={<span>waveRotation</span>}
+                />
+                <InputNumber
+                    defaultValue={waveWidth}
+                    onChange={(value) => {
+                        setWaveWidth(value)
+                    }}
+                    style={{ width: '100%', marginTop: 20 }}
+                    addonBefore={<span>WaveWidth</span>}
+                />
+                {/* <Button onClick={reload}>reload</Button> */}
                 <TextArea
                     value={form.topTitle}
                     onChange={(e) => {
@@ -100,6 +156,7 @@ function App() {
                     }}
                     rows={4}
                     placeholder="输入上标题"
+                    style={{ width: '100%', marginTop: 20 }}
                 ></TextArea>
                 <InputNumber
                     defaultValue={form.topTitleFontSize}
