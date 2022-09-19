@@ -76,7 +76,9 @@ function App() {
             fps: false,
             waves: waveCount,
             width: waveWidth,
-            hue:[waveColor,waveColor]
+            hue:[waveColor,waveColor],
+            amplitude:waveAmplitude,
+            rotation:waveRotation
         })
         waves.animate()
     }
