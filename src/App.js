@@ -83,7 +83,7 @@ function App() {
 
     useEffect(() => {
         reload()
-    }, [waveCount,waveColor,waveWidth])
+    }, [waveCount,waveColor,waveWidth,waveAmplitude,waveRotation])
     return (
         <div className="App">
             <div className="waveLayer" ref={ref}>
